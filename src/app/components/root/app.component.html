@@ -1,0 +1,7 @@
+<main class="container">
+  <div class="d-flex justify-content-end">
+    <button *ngIf="auth.profile" class="btn btn-danger" type="button" (click)="logout()">Logout</button>
+  </div>
+  <h1>Harvest overtime Calculator</h1>
+  <router-outlet></router-outlet>
+</main>

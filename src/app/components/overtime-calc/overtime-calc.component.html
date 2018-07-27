@@ -1,0 +1,38 @@
+<div class="backdrop" *ngIf="showSpinner">
+  <span class="spinner"></span>
+  <div class="progress">
+    <div class="progress-bar bg-success" role="progressbar" [style.width.%]="progressSubject | async" aria-valuenow="25" aria-valuemin="0"
+      aria-valuemax="100">Calculating</div>
+  </div>
+</div>
+
+<h2>Hello {{auth.profile.first_name}} {{auth.profile.last_name}}.</h2>
+    <h3>Please enter the data and press calculate button!</h3>
+    <form #form="ngForm" (ngSubmit)="getOvertime(form)">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Start Date*</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="date" ngModel name="from" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">End Date*</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="date" ngModel name="to" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Needed hours per week*</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="number" ngModel name="hoursPerWeek" step=".5" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="calculate"> (this may take a while depending on the desired timespan)
+      </div>
+    </form>
+
+    <div class="mt-5">
+      <p class="h3" *ngIf="overtime">Calculated Overtime:
+        <span [ngClass]="overtime > 0 ? 'text-success' : 'text-danger'">{{overtime}}</span> hours</p>
+    </div>
