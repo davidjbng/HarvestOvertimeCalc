@@ -1,4 +1,4 @@
-export class TimeSheetCalculationResult{
+export class TimesheetCalculationResult {
     neededHoursPerDay: number;
     totalWorkingTime: number;
     amountOfWorkingDays: number;
