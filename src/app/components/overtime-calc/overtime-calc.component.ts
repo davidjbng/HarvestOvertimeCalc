@@ -15,9 +15,10 @@ export class OvertimeCalcComponent implements OnInit, AfterViewInit {
 
   @ViewChild('form')
   public form: NgForm;
-  public overtime: string;
+  public result: any = {};
   public progressSubject = new Subject<number>();
   public showSpinner: boolean = false;
+  public showDetails: boolean = false;
 
   constructor(public auth: AuthService, private harvestApi: HarvestApiService, private router: Router) { }
 
@@ -46,11 +47,11 @@ export class OvertimeCalcComponent implements OnInit, AfterViewInit {
     this.harvestApi.getTimesheets(from, to, this.progressSubject).pipe(
       finalize(() => this.showSpinner = false)
     ).subscribe(sheets => {
-      const neededHoursperDay = form.value.hoursPerWeek / 5;
-      const totalWorkingTime = sheets.reduce((acc, sheet) => acc + sheet.hours, 0);
-      const amountOfWorkingDays = this.getAmountOfWorkingDays(new Date(from), new Date(to));
-      const neededHours = amountOfWorkingDays * neededHoursperDay;
-      this.overtime = (totalWorkingTime - neededHours).toFixed(2);
+      this.result.neededHoursperDay = form.value.hoursPerWeek / 5;
+      this.result.totalWorkingTime = sheets.reduce((acc, sheet) => acc + sheet.hours, 0);
+      this.result.amountOfWorkingDays = this.getAmountOfWorkingDays(new Date(from), new Date(to));
+      this.result.neededHours = this.result.amountOfWorkingDays * this.result.neededHoursperDay;
+      this.result.overtime = (this.result.totalWorkingTime - this.result.neededHours).toFixed(2);
     })
   }
 
