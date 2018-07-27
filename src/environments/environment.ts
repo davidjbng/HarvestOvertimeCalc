@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  harvestApi: "https://api.harvestapp.com/api/v2",
+  oAuthClientId: "<<INSERTCLIENTIDHERE>>"
 };
 
 /*

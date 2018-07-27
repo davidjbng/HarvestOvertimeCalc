@@ -1,0 +1,34 @@
+<h3>Please login</h3>
+<form class="form-inline mb-5">
+  <div class="form-group">
+    <label class="col-sm-6">Choose Auth Method:</label>
+    <div class=" col-sm-6 btn-group btn-group-toggle">
+      <label class="btn btn-primary" [class.active]="loginMethod === 'credentials'">
+        <input type="radio" name="credentials" id="option2" [(ngModel)]="loginMethod"
+          value="credentials" autocomplete="off"> Credentials
+      </label>
+      <label class="btn btn-primary"  [class.active]="loginMethod === 'personalToken'">
+        <input type="radio" name="personalToken" id="option1" [(ngModel)]="loginMethod"
+          value="personalToken" checked> PersonalToken
+      </label>
+    </div>
+  </div>
+</form>
+<ng-container *ngIf="loginMethod === 'personalToken'; else loginWithCredentials">
+  <form class="form-inline" (ngSubmit)="setPersonalToken(token.value, userId.value)">
+    <div class="form-group">
+      <input class="form-control" placeholder="userId" type="text" ngModel #userId="ngModel" name="userId" required>
+    </div>
+    <div class="form-group">
+      <label>Token</label>
+      <input class="form-control" placeholder="token" type="string" ngModel #token="ngModel" name="token" required>
+    </div>
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" value="login">
+    </div>
+  </form>
+</ng-container>
+
+<ng-template #loginWithCredentials>
+  <button class="btn btn-primary" type="button" (click)="redirectToHarvest()">Go to Login@Harvest</button>
+</ng-template>
